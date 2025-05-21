@@ -1,9 +1,11 @@
 import { loginRequest, profileRequest } from "../api/auth";
-import { userAuthStore } from "../store/auth";
+import { useAuthStore } from "../store/auth";
 
 function LoginPage() {
-  const setToken = userAuthStore((state) => state.setToken);
-  const setProfile = userAuthStore((state) => state.setProfile);
+  
+  const setToken = useAuthStore((state) => state.setToken);
+  const setProfile = useAuthStore((state) => state.setProfile);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = (e?.currentTarget.elements[0] as HTMLInputElement).value;

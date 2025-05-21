@@ -5,14 +5,13 @@ type State = {
   token: string;
   profile: any;
 };
-
-type Actions = {
+type Action = {
   setToken: (token: string) => void;
   setProfile: (profile: any) => void;
 };
 
-export const userAuthStore = create(
-  persist<State & Actions>(
+export const useAuthStore = create(
+  persist<State & Action>(
     (set) => ({
       token: "",
       profile: null,
@@ -25,6 +24,8 @@ export const userAuthStore = create(
           profile,
         })),
     }),
-    { name: "auth" }
+    {
+      name: "auth",
+    }
   )
 );
