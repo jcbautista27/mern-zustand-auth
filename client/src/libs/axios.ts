@@ -1,12 +1,12 @@
 import axios from "axios";
-import { userAuthStore } from "../store/auth";
+import { useAuthStore } from "../store/auth";
 
 const authApi = axios.create({
   baseURL: "http://localhost:3000",
   withCredentials: true,
 });
 
-const token = userAuthStore.getState().token;
+const token = useAuthStore.getState().token;
 
 authApi.interceptors.request.use(config => {
   config.headers.set(
