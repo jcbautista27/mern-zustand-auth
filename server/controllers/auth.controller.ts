@@ -16,11 +16,11 @@ export const loginHandler = (req: Request, res: Response) => {
       expiresIn: 60 * 60 * 24,
     }
   );
-  res.json({ token });
+  return res.json({ token });
 };
 
 export const profileHandler = (req: Request, res: Response) => {
-  res.json({
+  return res.json({
     profile: req.user,
     message: "profile data",
   });

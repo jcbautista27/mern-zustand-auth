@@ -8,17 +8,17 @@ export const requireAuth = (
 ) => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader) res.status(401).json({ message: "Unathorized" });
+  if (!authHeader) return res.status(401).json({ message: "Unathorized" });
 
   const token: string | any = authHeader?.split(" ")[1];
 
-  if (!token) res.status(401).json({ message: "Unathorized" });
+  if (!token) return res.status(401).json({ message: "Unathorized" });
 
   jwt.verify(
     token,
     "secret",
     (err: jwt.VerifyErrors | null, user: JwtPayload | string | undefined) => {
-      if (err) res.status(401).json({ message: "Unauthorized" });
+      if (err) return res.status(401).json({ message: "Unauthorized" });
       req.user = user;
 
       next();
