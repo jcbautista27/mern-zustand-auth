@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 export function Navbar() {
   return (
     <div>
-      <nav>
-        <ul>
+      <nav className="w-full border-2 p-2">
+        <ul className="flex gap-6">
           <li>
             <Link to="/">Home</Link>
           </li>

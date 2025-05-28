@@ -1,7 +1,7 @@
-import axios from '../libs/axios'
+import axios from '../lib/axios'
 
 export const loginRequest = async (email: string, password: string) => {
-  return axios.post("/login", {
+  return await axios.post("/login", {
     email,
     password,
   });

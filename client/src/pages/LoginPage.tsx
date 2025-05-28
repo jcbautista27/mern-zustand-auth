@@ -1,4 +1,15 @@
 import { loginRequest, profileRequest } from "../api/auth";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Separator } from "../components/ui/separator";
 import { useAuthStore } from "../store/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -23,11 +34,61 @@ export function LoginPage() {
 
     console.log(resProfile);
   };
+  {
+    /* <form onSubmit={handleSubmit}>
+      <input className="font-sans" type="email" placeholder="email@email.com" />
+      <input className="font-sans" type="password" placeholder="******" />
+      <button className="font-sans">Login</button>
+      <Button>LOGIN SHADCN</Button>
+    </form> */
+  }
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="email" placeholder="email@email.com" />
-      <input type="password" placeholder="******" />
-      <button>Login</button>
-    </form>
+    <main className="h-screen flex w-full">
+      <div className="bg-primary-foreground w-full h-full flex p-16"></div>
+      <section className="flex items-center justify-center bg-background h-full max-w-3xl w-full p-4">
+        <Card className="w-[350px]">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold tracking-tighter">
+              Entrar con su contraseña
+            </CardTitle>
+            <CardDescription>
+              Utilice su e-mail y contraseña o GitHub para entrar
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <Label htmlFor="email">E-mail</Label>
+                <Input
+                  id="email"
+                  className="font-sans"
+                  type="email"
+                  placeholder="examplel@email.com"
+                />
+              </div>
+
+              <div className="mt-4">
+                <Label htmlFor="password">Contraseña</Label>
+                <Input
+                  id="password"
+                  className="font-sans"
+                  type="password"
+                  placeholder="******"
+                />
+              </div>
+
+              <Button className="mt-6 w-full">Entrar</Button>
+
+              <div className="flex items-center gap-6">
+                <Separator />
+                <span className="text-xs text-muted-foreground">or</span>
+                <Separator />
+              </div>
+              <Button variant={"outline"} className="mt-6 w-full">Registrar</Button>
+            </form>
+          </CardContent>
+        </Card>
+      </section>
+    </main>
   );
 }
