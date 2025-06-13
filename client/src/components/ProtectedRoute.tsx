@@ -1,10 +1,14 @@
-import { Navigate , Outlet} from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 type Props = {
   children?: React.ReactNode;
   isAllowed: boolean;
 };
 
 export const ProtectedRoute = ({ isAllowed, children }: Props) => {
-  if (!isAllowed) return <Navigate to={"/login"} />;
-  return children? <>{children}</> : <Outlet/>;
+  const location = useLocation();
+  if (!isAllowed) {
+    localStorage.setItem("lastPath", location.pathname);
+    return <Navigate to="/login" replace />;
+  }
+  return children ? <>{children}</> : <Outlet />;
 };

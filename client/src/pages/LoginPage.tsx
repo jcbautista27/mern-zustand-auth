@@ -31,27 +31,35 @@ export function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const email = (e?.currentTarget.elements[0] as HTMLInputElement).value;
-    const password = (e?.currentTarget.elements[1] as HTMLInputElement).value;
+    // Convertimos el evento al tipo correcto
+    const submitter = (e.nativeEvent as SubmitEvent)
+      .submitter as HTMLButtonElement;
+    const buttonType = submitter.name;
 
-    const resLogin = await loginRequest(email, password);
-    setToken(resLogin.data.token);
+    console.log(buttonType);
+    if (buttonType === "register") {
+      navigate("/register");
+      return;
+    } else if (buttonType === "login") {
+      const email = (e?.currentTarget.elements[0] as HTMLInputElement).value;
+      const password = (e?.currentTarget.elements[1] as HTMLInputElement).value;
 
-    const resProfile = await profileRequest();
-    setProfile(resProfile.data.profile);
+      const resLogin = await loginRequest(email, password);
+      setToken(resLogin.data.token);
 
-    navigate("/profile");
+      const resProfile = await profileRequest();
+      setProfile(resProfile.data.profile);
 
-    console.log(resProfile);
+      const lastPath = localStorage.getItem("lastPath");
+      localStorage.removeItem("lastPath");
+      console.log("lastPath", lastPath);
+      navigate(lastPath? lastPath : "", {replace: true});
+      // navigate("/profile");
+
+      console.log(resProfile);
+    }
   };
-  {
-    /* <form onSubmit={handleSubmit}>
-      <input className="font-sans" type="email" placeholder="email@email.com" />
-      <input className="font-sans" type="password" placeholder="******" />
-      <button className="font-sans">Login</button>
-      <Button>LOGIN SHADCN</Button>
-    </form> */
-  }
+
   return (
     <main className="h-screen flex w-full">
       <div className="hidden md:flex bg-primary-foreground w-full h-full p-16 items-center justify-center">
@@ -111,14 +119,21 @@ export function LoginPage() {
                 />
               </div>
 
-              <Button className="mt-6 w-full">Entrar</Button>
+              <Button type="submit" name="login" className="mt-6 w-full">
+                Entrar
+              </Button>
 
               <div className="flex items-center gap-6 mt-4">
                 <Separator />
                 <span className="text-xs text-muted-foreground">or</span>
                 <Separator />
               </div>
-              <Button variant={"outline"} className="mt-4 w-full">
+              <Button
+                type="submit"
+                name="register"
+                variant={"outline"}
+                className="mt-4 w-full"
+              >
                 Registrar
               </Button>
             </form>
